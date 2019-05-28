@@ -1,5 +1,5 @@
 const cookieName = `countDownTimer_v001`
-const countDownTime = 60 * 5 // 5 minutes
+const countDownTime = 3 // 5 minutes
 const cookieExpTime = 30 // in days
 
 const currentUserCookie = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'))
@@ -39,10 +39,11 @@ function getCountDownValue() {
         let template = ``
         Object.keys(variablesToShow).map(value => {
             if (variablesToShow[value]) {
+                const time = ('0' + timers[value]).slice(-2)
                 const ending = (value === Object.keys(variablesToShow)[Object.keys(variablesToShow).length - 1])
                     ? ''
                     : ':'
-                template += `<span class="countDownTimer_${value}">${timers[value]}${ending}</span>`
+                template += `<span class="countDownTimer_${value}">${time}${ending}</span>`
             }
         })
 
@@ -57,7 +58,7 @@ function getCountDownValue() {
             const ending = (value === Object.keys(variablesToShow)[Object.keys(variablesToShow).length - 1])
                 ? ''
                 : ':'
-            template += `<span class="countDownTimer_${value}">0${ending}</span>`
+            template += `<span class="countDownTimer_${value}">00${ending}</span>`
         }
     })
 

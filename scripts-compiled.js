@@ -1,7 +1,7 @@
 'use strict';
 
 var cookieName = 'countDownTimer_v001';
-var countDownTime = 60 * 5; // 5 minutes
+var countDownTime = 3; // 5 minutes
 var cookieExpTime = 30; // in days
 
 var currentUserCookie = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
@@ -41,8 +41,9 @@ function getCountDownValue() {
         var _template = '';
         Object.keys(variablesToShow).map(function (value) {
             if (variablesToShow[value]) {
+                var time = ('0' + timers[value]).slice(-2);
                 var ending = value === Object.keys(variablesToShow)[Object.keys(variablesToShow).length - 1] ? '' : ':';
-                _template += '<span class="countDownTimer_' + value + '">' + timers[value] + ending + '</span>';
+                _template += '<span class="countDownTimer_' + value + '">' + time + ending + '</span>';
             }
         });
 
@@ -57,7 +58,7 @@ function getCountDownValue() {
     Object.keys(variablesToShow).map(function (value) {
         if (variablesToShow[value]) {
             var ending = value === Object.keys(variablesToShow)[Object.keys(variablesToShow).length - 1] ? '' : ':';
-            template += '<span class="countDownTimer_' + value + '">0' + ending + '</span>';
+            template += '<span class="countDownTimer_' + value + '">00' + ending + '</span>';
         }
     });
 
