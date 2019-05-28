@@ -41,7 +41,8 @@ function getCountDownValue() {
         var _template = '';
         Object.keys(variablesToShow).map(function (value) {
             if (variablesToShow[value]) {
-                _template += '<span class="countDownTimer_' + value + '">' + timers[value] + ' ' + value + '</span> ';
+                var ending = value === Object.keys(variablesToShow)[Object.keys(variablesToShow).length - 1] ? '' : ':';
+                _template += '<span class="countDownTimer_' + value + '">' + timers[value] + ending + '</span>';
             }
         });
 
@@ -55,17 +56,18 @@ function getCountDownValue() {
     var template = '';
     Object.keys(variablesToShow).map(function (value) {
         if (variablesToShow[value]) {
-            template += '<span class="countDownTimer_' + value + '">0 ' + value + '</span> ';
+            var ending = value === Object.keys(variablesToShow)[Object.keys(variablesToShow).length - 1] ? '' : ':';
+            template += '<span class="countDownTimer_' + value + '">0' + ending + '</span>';
         }
     });
 
-    startNewSession();
     alert('Time is up!');
     return writeToNode(template);
 }
 
 function startNewSession() {
     document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    timeLeft = countDownTime;
     return initNewCountDownCookie(cookieExpTime);
 }
 
@@ -73,4 +75,9 @@ function writeToNode(template) {
     document.getElementById('countDownTimer').innerHTML = template;
 }
 
-getCountDownValue(timeLeft);
+if (timeLeft > 0) {
+    getCountDownValue(timeLeft);
+} else {
+    startNewSession();
+    getCountDownValue(timeLeft);
+}
